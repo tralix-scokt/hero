@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tralix Scokt | Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d9ff; /* Cyan/Light Blue */
+            --secondary: #8a2be2; /* Blue Violet */
+            --dark: #0a0a1a; /* Very Dark Blue */
+            --glass: rgba(20, 20, 40, 0.5); /* Darker glass background */
+            --text: #f0f0f0; /* Light text */
+            --gradient-text: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', system-ui, sans-serif; /* Modern, clean font */
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark), #1a1a2e); /* Subtle dark gradient */
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            display: flex; /* Use flexbox for centering */
+            justify-content: center;
+            align-items: center;
+            padding: 2rem; /* Padding around the content */
+        }
+
+        .hero {
+            max-width: 1200px; /* Max width for larger screens */
+            width: 100%; /* Take full width on smaller screens */
+            margin: 0 auto;
+            min-height: 90vh; /* Ensure hero takes most of the viewport height */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Glassmorphic Container */
+        .hero-content {
+            backdrop-filter: blur(16px); /* The core glass effect */
+            background: var(--glass);
+            border-radius: 24px; /* Rounded corners */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+            padding: 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Soft shadow */
+            position: relative;
+            overflow: hidden; /* Crucial for internal gradient animation */
+            z-index: 1; /* Ensure it's above background elements */
+            text-align: center; /* Center content within the glass container */
+            animation: fadeIn 1s ease-out forwards; /* Fade in animation */
+        }
+
+        /* Animated Background Glow within Glass */
+        .hero-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent,
+                transparent,
+                transparent,
+                var(--primary), /* Primary color glow */
+                transparent,
+                var(--secondary) /* Secondary color glow */
+            );
+            animation: rotate 20s linear infinite; /* Slow rotation */
+            z-index: -1; /* Behind the content */
+            opacity: 0.15; /* Subtle opacity */
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Headings */
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem); /* Responsive font size */
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            background: var(--gradient-text); /* Gradient text for main title */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--primary); /* Highlight with primary color */
+        }
+
+        p {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 700px; /* Constrain paragraph width */
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        /* Call to Action Button */
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient-text); /* Gradient button background */
+            color: var(--dark); /* Dark text on bright button */
+            padding: 1rem 2.5rem;
+            border-radius: 50px; /* Pill-shaped button */
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 2; /* Ensure button is above the glass glow */
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.6), 0 0 40px rgba(138, 43, 226, 0.4); /* Enhanced glow on hover */
+            transform: translateY(-3px); /* Slight lift */
+            color: var(--text); /* Text color change on hover for contrast */
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2); /* Subtle hover overlay */
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .hero-content {
+                padding: 2rem;
+                margin: 1rem; /* Add some margin on smaller screens */
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            p {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+            .cta-button {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Tralix Scokt</h1>
+            <h2>Full-Stack Developer | Innovator | Problem Solver</h2>
+            <p>
+                Crafting elegant and efficient solutions across the stack. With a passion for clean code and intuitive user experiences, I transform complex ideas into robust, scalable applications. Let's build the future, one line of code at a time.
+            </p>
+            <a href="#contact" class="cta-button">Connect with Me</a>
+        </div>
+    </div>
+
+    <!-- Optional: Add a simple smooth scroll for the CTA button -->
+    <script>
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            // You can replace '#contact' with a link to your LinkedIn, GitHub, or a contact section
+            // For now, it just scrolls to the top if no element with id 'contact' exists
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                alert('No contact section yet! Feel free to add one below this hero page.');
+            }
+        });
+    </script>
+</body>
+</html>
